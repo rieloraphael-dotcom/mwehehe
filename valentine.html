@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Hello...</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background:
+    radial-gradient(circle at 15% 25%, #f1a7b6 0%, transparent 55%),
+    radial-gradient(circle at 85% 20%, #f3cfa1 0%, transparent 60%),
+    radial-gradient(circle at 25% 80%, #e89aaa 0%, transparent 60%),
+    radial-gradient(circle at 75% 75%, #f0b98a 0%, transparent 60%),
+    linear-gradient(135deg, #e89aa8, #f0c08a);
+  background-blend-mode: soft-light;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+}
+
+input { display: none; }
+
+.window {
+  width: 320px;
+  background: #c0c0c0;
+  border: 2px solid #404040;
+  box-shadow: 2px 2px 0 #404040;
+  display: none; 
+}
+
+.title {
+  background: linear-gradient(to right, #d96c7b, #e89a6f);
+  color: #fff1f4;
+  padding: 4px 6px;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #c25a6a;
+  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.close {
+  background: #e57a8a;
+  border: 1px solid #c25a6a;
+  width: 16px;
+  height: 16px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+  color: #fff1f4;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.content {
+  padding: 18px;
+  color: #2a0f14;
+  font-size: 14px;
+  flex-direction: column;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 18px 18px;
+}
+
+.btn {
+  background: #c0c0c0;
+  border: 2px outset #fff;
+  padding: 4px 16px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.btn:active {
+  border: 2px inset #fff;
+}
+
+#s1:checked ~ .w1,
+#s2:checked ~ .w2,
+#s3:checked ~ .w3,
+#s4:checked ~ .w4,
+#s5:checked ~ .w5,
+#s6:checked ~ .w6,
+#s7:checked ~ .w7,
+#s8:checked ~ .w8,
+#s9:checked ~ .w9 {
+  display: block;
+}
+</style>
+</head>
+<body>
+
+<input type="radio" name="step" id="s1" checked>
+<input type="radio" name="step" id="s2">
+<input type="radio" name="step" id="s3">
+<input type="radio" name="step" id="s4">
+<input type="radio" name="step" id="s5">
+<input type="radio" name="step" id="s6">
+<input type="radio" name="step" id="s7">
+<input type="radio" name="step" id="s8">
+<input type="radio" name="step" id="s9">
+
+<div class="window w1">
+  <div class="title"><span>Hello...</span><div class="close">×</div></div>
+  <div class="content">Did you know..</div>
+  <div class="buttons"><label for="s2" class="btn">What?</label></div>
+</div>
+
+<div class="window w2">
+  <div class="title"><span>Hello...</span><div class="close">×</div></div>
+  <div class="content">February is a month of love</div>
+  <div class="buttons"><label for="s3" class="btn">Okay</label></div>
+</div>
+
+<div class="window w3">
+  <div class="title"><span>Hello...</span><div class="close">×</div></div>
+  <div class="content">and it's February!</div>
+  <div class="buttons"><label for="s4" class="btn">YAY</label></div>
+</div>
+
+<div class="window w4">
+  <div class="title"><span>Hello...</span><div class="close">×</div></div>
+  <div class="content">it also means February 14 is approaching..</div>
+  <div class="buttons"><label for="s5" class="btn">??</label></div>
+</div>
+
+<div class="window w5">
+  <div class="title"><span>Hello...</span><div class="close">×</div></div>
+  <div class="content">so..</div>
+  <div class="buttons"><label for="s6" class="btn">yeah?</label></div>
+</div>
+
+<div class="window w6">
+  <div class="title"><span>Hello...</span><div class="close">×</div></div>
+  <div class="content" id="valentineMessage">Can I be your Valentine?</div>
+  <div class="buttons" id="valentineButtons">
+    <label for="s7" class="btn">Yes</label>
+    <label class="btn" onclick="noFlow()">No</label>
+  </div>
+</div>
+
+<div class="window w7">
+  <div class="title"><span>Hello...</span><div class="close">×</div></div>
+  <div class="content">reallyyy? really??</div>
+  <div class="buttons"><label for="s9" class="btn">Yes</label></div>
+</div>
+
+<div class="window w9">
+  <div class="title"><span>Hello...</span></div>
+  <div class="content" style="text-align:center;">Thank you for your time, see you! -Rielo</div>
+</div>
+
+<script>
+let noStage = 0;
+
+function noFlow() {
+  const message = document.getElementById('valentineMessage');
+  const buttons = document.getElementById('valentineButtons');
+
+  if(noStage === 0){
+    message.textContent = "please think about it again";
+    buttons.innerHTML = '<label class="btn" onclick="backToValentine()">Okay</label>';
+    noStage++;
+  } else if(noStage === 1){
+    message.textContent = "pretty please?";
+    buttons.innerHTML = '<label class="btn" onclick="backToValentineYesOnly()">Okay</label>';
+    noStage++;
+  }
+}
+
+function backToValentine() {
+  const message = document.getElementById('valentineMessage');
+  const buttons = document.getElementById('valentineButtons');
+  message.textContent = "Can I be your Valentine?";
+  buttons.innerHTML = '<label for="s7" class="btn">Yes</label><label class="btn" onclick="noFlow()">No</label>';
+}
+
+function backToValentineYesOnly() {
+  const message = document.getElementById('valentineMessage');
+  const buttons = document.getElementById('valentineButtons');
+  message.textContent = "Can I be your Valentine?";
+  buttons.innerHTML = '<label for="s7" class="btn">Yes</label>';
+}
+</script>
+
+</body>
+</html>
